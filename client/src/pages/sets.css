@@ -1,0 +1,132 @@
+/* ============================================================
+   단어장 목록 페이지 (/sets) 전용 스타일
+   색상/치수는 index.css 디자인 토큰만 사용.
+   ============================================================ */
+
+/* ---------- 상단 도구줄 (생성 폼 + 검색) ---------- */
+
+.sets-toolbar {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+
+.sets-create {
+  flex: 1 1 340px;
+  min-width: 0;
+}
+
+.sets-search {
+  flex: 1 1 200px;
+  max-width: 280px;
+}
+
+@media (max-width: 620px) {
+  .sets-search {
+    max-width: none;
+  }
+}
+
+/* ---------- 단어장 카드 ---------- */
+
+.set-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.set-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.set-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  min-height: 30px;
+}
+
+.set-card-name {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
+.set-card-name:hover {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.set-card-rename {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.set-card-rename input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.38rem 0.6rem;
+  font-size: 0.92rem;
+}
+
+.set-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin: 0.35rem 0 0.6rem;
+  font-size: 0.83rem;
+  color: var(--muted);
+}
+
+.set-card-star {
+  color: var(--star);
+}
+
+.set-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+}
+
+.set-card-tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.set-card-tools .icon-btn {
+  width: 34px;
+  height: 34px;
+}
+
+.icon-btn.danger:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}

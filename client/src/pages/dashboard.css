@@ -1,0 +1,377 @@
+/* ============================================================
+   홈 대시보드 (/) 전용 스타일
+   색상/치수는 index.css 디자인 토큰만 사용.
+   ============================================================ */
+
+/* ---------- 헤더 (인사 + 날짜) ---------- */
+
+.dash-head {
+  margin-bottom: 1.25rem;
+}
+
+.dash-head h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.dash-prompt {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--accent-2);
+}
+
+.dash-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 0.15em;
+  vertical-align: text-bottom;
+  background: var(--accent-2);
+  border-radius: 2px;
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-caret {
+    animation: none;
+  }
+}
+
+.dash-date {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+/* ---------- 통계 카드 4개 ---------- */
+
+.dash-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 380px) {
+  .dash-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 복습 CTA 카드 ---------- */
+
+.dash-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  background: var(--accent-grad);
+  color: var(--on-accent);
+  border-radius: var(--radius);
+  padding: 1.05rem 1.2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 6px 20px var(--accent-shadow);
+}
+
+.dash-cta-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--on-accent);
+  flex-shrink: 0;
+}
+
+.dash-cta-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.dash-cta-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.dash-cta-sub {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.dash-cta-btn.btn {
+  background: var(--on-accent);
+  border-color: transparent;
+  color: var(--accent);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.dash-cta-btn.btn:hover {
+  background: var(--on-accent);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
+}
+
+@media (max-width: 480px) {
+  .dash-cta-btn.btn {
+    width: 100%;
+  }
+}
+
+/* ---------- 다음 시험 D-day ---------- */
+
+.dash-exam {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 0.95rem 1.2rem;
+  margin-bottom: 1.5rem;
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.dash-exam:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px var(--accent-shadow);
+}
+
+html[data-theme='dark'] .dash-exam {
+  box-shadow: 0 0 14px var(--accent-shadow);
+}
+
+.dash-exam-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.dash-exam-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dash-exam-title {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.dash-exam-sub {
+  font-size: 0.84rem;
+  color: var(--text-2);
+}
+
+.dash-exam-dday {
+  font-family: var(--mono);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+.dash-exam-chev {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ---------- 섹션 공통 ---------- */
+
+.dash-section {
+  margin-bottom: 1.6rem;
+}
+
+.dash-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.dash-section-head h2 {
+  margin: 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+}
+
+.dash-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.3rem;
+  transition: background 0.15s ease;
+}
+
+.dash-link:hover {
+  background: var(--accent-soft);
+}
+
+/* ---------- 내 단어장 카드 ---------- */
+
+.dash-set-card {
+  display: block;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+  color: var(--text);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.dash-set-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.dash-set-card:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.dash-set-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.dash-set-top h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-set-meta {
+  margin: 0.3rem 0 0.6rem;
+  font-size: 0.83rem;
+  color: var(--muted);
+}
+
+/* ---------- 최근 시험 ---------- */
+
+.dash-recent {
+  padding: 0.4rem 0.55rem;
+}
+
+.dash-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  padding: 0.65rem 0.6rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.15s ease;
+}
+
+.dash-recent-item:hover {
+  background: var(--surface-2);
+}
+
+.dash-recent-item:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.dash-recent-item + .dash-recent-item {
+  border-top: 1px solid var(--border);
+}
+
+.dash-recent-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.dash-recent-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.dash-recent-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-recent-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-recent-chev {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* 단어장 카드의 진도 % (여러 단어장을 나란히 비교하기 쉽게) */
+.dash-set-pct {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.dash-set-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}

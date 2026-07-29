@@ -1,0 +1,732 @@
+/* ============================================================
+   단어장 상세 페이지 (/sets/:id) 전용 스타일
+   색상/치수는 index.css 디자인 토큰만 사용.
+   ============================================================ */
+
+.sd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+}
+
+.sd-back:hover {
+  color: var(--accent);
+}
+
+.sd-head {
+  align-items: center;
+}
+
+.sd-head-info {
+  min-width: 0;
+}
+
+.sd-meta {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.sd-head-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sd-head-actions .btn.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.sd-notice {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ok);
+  background: var(--ok-soft);
+  padding: 0.55rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  margin: 0 0 1rem;
+}
+
+/* ---------- 단어 추가 ---------- */
+
+.sd-add {
+  margin-bottom: 1.1rem;
+}
+
+.sd-add-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr auto;
+  gap: 0.55rem;
+  margin-bottom: 0.65rem;
+}
+
+@media (max-width: 720px) {
+  .sd-add-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sd-add-form input:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .sd-add-form .btn {
+    grid-column: 1 / -1;
+  }
+}
+
+.sd-bulk {
+  margin-top: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.sd-bulk textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.sd-bulk-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+/* ---------- 목록 도구줄 ---------- */
+
+.sd-list-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+
+.sd-list-head .panel-title {
+  margin: 0;
+}
+
+.sd-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.sd-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sd-search {
+  width: 220px;
+}
+
+.sd-sort {
+  padding: 0.45rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 720px) {
+  .sd-tools {
+    width: 100%;
+  }
+
+  .sd-search {
+    flex: 1 1 100%;
+    width: auto;
+  }
+}
+
+/* ---------- 단어 테이블 (데스크톱) ---------- */
+
+.sd-table .sd-th-speak {
+  width: 44px;
+}
+
+.sd-table .sd-th-actions {
+  width: 128px;
+}
+
+.sd-cell-word strong {
+  font-weight: 700;
+}
+
+/* 전역 순번 (추가순 기준 1~N) */
+.sd-seq {
+  display: inline-block;
+  min-width: 2.4em;
+  margin-right: 0.35rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* 30개 단위 구분 줄 (위아래 틈 + 범위 라벨) */
+.sd-group-row td {
+  border-bottom: none;
+  padding: 1.35rem 0.6rem 0.4rem;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.sd-group-row:first-child td {
+  padding-top: 0.4rem;
+}
+
+.sd-example {
+  font-size: 0.82rem;
+  margin-top: 0.15rem;
+  line-height: 1.4;
+}
+
+.sd-untested {
+  font-size: 0.84rem;
+}
+
+.sd-star.on {
+  color: var(--star);
+}
+
+.sd-star.on:hover {
+  color: var(--star);
+}
+
+.icon-btn.danger:hover {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ---------- 인라인 편집 ---------- */
+
+.sd-edit-row td {
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.sd-edit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.3fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.25rem 0;
+}
+
+.sd-edit-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+@media (max-width: 720px) {
+  .sd-edit-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- 모바일: 테이블 → 카드 리스트 ---------- */
+
+@media (max-width: 720px) {
+  .sd-table,
+  .sd-table tbody,
+  .sd-table tr,
+  .sd-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .sd-table thead {
+    display: none;
+  }
+
+  .sd-table tr {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 0.85rem 0.6rem 2.9rem;
+    margin-bottom: 0.6rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* 모바일: 구분 줄은 카드가 아니라 라벨 줄로 */
+  .sd-table tr.sd-group-row {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0.9rem 0.2rem 0.1rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .sd-table td {
+    padding: 0;
+    border: none;
+  }
+
+  .sd-table td.sd-cell-speak {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.55rem;
+    width: auto;
+  }
+
+  .sd-cell-word {
+    padding-right: 3rem;
+  }
+
+  .sd-cell-meaning {
+    color: var(--text-2);
+    font-size: 0.93rem;
+    margin-top: 0.15rem;
+  }
+
+  .sd-table td.sd-cell-rate {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.85rem;
+    width: auto;
+  }
+
+  .sd-cell-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.15rem;
+    margin-top: 0.45rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.35rem;
+  }
+
+  .sd-edit-row {
+    padding: 0.75rem 0.85rem !important;
+  }
+}
+
+/* ---------- 보기 전환 탭 ---------- */
+
+.sd-viewtabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  margin: 0 0 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.sd-viewtab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-2);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.sd-viewtab:hover {
+  color: var(--text);
+}
+
+.sd-viewtab.selected {
+  background: var(--surface);
+  color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- Day 갤러리 ---------- */
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.chapter-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+html[data-theme='dark'] .chapter-card {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    linear-gradient(140deg, var(--card-edge), rgba(255, 255, 255, 0.04) 45%, var(--card-edge-2))
+      border-box;
+}
+
+.chapter-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.chapter-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.chapter-day {
+  font-family: var(--mono);
+  font-weight: 800;
+  font-size: 1.02rem;
+  color: var(--accent);
+}
+
+.chapter-range {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-2);
+}
+
+.chapter-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  min-height: 2.4em;
+  overflow: hidden;
+}
+
+.chapter-preview span {
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 0.05rem 0.4rem;
+  white-space: nowrap;
+}
+
+.chapter-bar {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.chapter-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent-grad);
+  transition: width 0.3s ease;
+}
+
+.chapter-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chapter-meta svg {
+  color: var(--star);
+}
+
+.chapter-actions {
+  display: flex;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.chapter-actions .btn {
+  flex: 1;
+  min-width: 0;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .chapter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+  .chapter-card {
+    padding: 0.75rem 0.8rem;
+  }
+  .chapter-preview {
+    display: none;
+  }
+  .chapter-actions {
+    flex-direction: column;
+  }
+  .chapter-actions .btn {
+    font-size: 0.8rem;
+  }
+}
+
+/* ---------- Day 상세 (그 Day 단어만 보기) ---------- */
+
+.sd-day {
+  /* sticky 상단바에 가리지 않게 */
+  scroll-margin-top: 74px;
+}
+
+.sd-day-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.sd-day-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sd-day-title h2 {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.sd-day-sub {
+  margin: 0.15rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--text-2);
+}
+
+.sd-day-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.65rem 0.8rem;
+  margin-bottom: 0.9rem;
+  background: var(--surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.sd-day-stats {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+  font-size: 0.84rem;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.sd-day-stats b {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.sd-day-star {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sd-day-star svg {
+  color: var(--star);
+}
+
+.sd-day-summary .chapter-bar {
+  background: var(--surface);
+}
+
+.sd-day-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 720px) {
+  .sd-day-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sd-day-back {
+    align-self: flex-start;
+  }
+
+  .sd-day-foot .btn {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- Day별 응시 모드 배지 ---------- */
+
+.chapter-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+}
+
+.chapter-modes-empty {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.76rem;
+}
+
+.mode-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* 그 Day 전체를 이 모드로 응시함 */
+.mode-badge.full {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid transparent;
+}
+
+/* 일부 단어만 출제된 모드 */
+.mode-badge.partial {
+  background: transparent;
+  color: var(--muted);
+  border: 1px dashed var(--border-strong);
+}
+
+.mode-badge em {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  opacity: 0.85;
+}
+
+/* Day 상세의 "본 시험" 줄 */
+.sd-day-modes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border);
+}
+
+.sd-day-modes-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.sd-day-modes .chapter-modes {
+  margin-top: 0;
+}
+
+.sd-day-modes .chapter-modes-empty {
+  margin-top: 0;
+  font-size: 0.8rem;
+}
+
+/* ---------- 품사 태그 ---------- */
+
+.pos-tags {
+  display: inline-flex;
+  gap: 0.15rem;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+.pos-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  padding: 0 0.2rem;
+  border-radius: 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1;
+  background: var(--surface-2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.pos-tag.pos-명 { color: #6ea8fe; border-color: rgba(110, 168, 254, 0.35); background: rgba(110, 168, 254, 0.1); }
+.pos-tag.pos-동 { color: #4ade80; border-color: rgba(74, 222, 128, 0.35); background: rgba(74, 222, 128, 0.1); }
+.pos-tag.pos-형 { color: #fbbf24; border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.1); }
+.pos-tag.pos-부 { color: #f472b6; border-color: rgba(244, 114, 182, 0.35); background: rgba(244, 114, 182, 0.1); }
+
+html[data-theme='light'] .pos-tag.pos-명 { color: #1d63c9; }
+html[data-theme='light'] .pos-tag.pos-동 { color: #15803d; }
+html[data-theme='light'] .pos-tag.pos-형 { color: #b45309; }
+html[data-theme='light'] .pos-tag.pos-부 { color: #be185d; }
+
+/* ---------- 뜻 조각별 품사 표시 ---------- */
+
+.meaning-parts {
+  display: inline;
+}
+
+.meaning-part {
+  display: inline;
+  white-space: normal;
+}
+
+.meaning-part .pos-tags {
+  margin-left: 0;
+  margin-right: 0.25rem;
+}
+
+.meaning-sep {
+  margin-right: 0.35rem;
+  color: var(--muted);
+}
+
+/* 뜻 안에서는 배지를 조금 더 작게 */
+.meaning-part .pos-tag {
+  min-width: 1.15rem;
+  height: 1.1rem;
+  font-size: 0.64rem;
+}

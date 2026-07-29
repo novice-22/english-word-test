@@ -1,0 +1,732 @@
+/* ============================================================
+   학습 플로우 스타일
+   (QuizSetupPage / QuizPage / FlashcardSession / ReviewPage / ResultPage)
+   색상은 전부 index.css의 CSS 변수 사용 → 다크 테마 자동 대응.
+   ============================================================ */
+
+/* ---------- 공통 ---------- */
+
+.learn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-2);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.3rem;
+  margin-left: -0.3rem;
+  transition: color 0.15s ease;
+}
+
+.learn-back:hover {
+  color: var(--accent);
+}
+
+.learn-skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ---------- 시험 설정 ---------- */
+
+.setup-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.mode-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem 0.95rem;
+  cursor: pointer;
+  min-width: 0;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.mode-card:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.mode-card:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.mode-card.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.mode-card:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.mode-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.mode-card.selected .mode-card-icon {
+  background: var(--accent-grad);
+  color: var(--on-accent);
+}
+
+.mode-card strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.mode-card > span:last-child {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.setup-sub {
+  margin: 0.95rem 0 0.5rem;
+  font-size: 0.83rem;
+  font-weight: 700;
+  color: var(--text-2);
+}
+
+.setup-sub:first-of-type {
+  margin-top: 0.1rem;
+}
+
+.setup-note {
+  margin: 0.7rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.setup-note.center {
+  text-align: center;
+}
+
+.check-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+.setup-start {
+  margin-top: 1.1rem;
+}
+
+/* ---------- 시험 진행 ---------- */
+
+.quiz-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.quiz-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.quiz-topinfo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.quiz-set {
+  font-size: 0.85rem;
+  max-width: 45vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quiz-count {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.quiz-card {
+  margin-top: 1.1rem;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem 1.4rem;
+  box-shadow: var(--shadow-md);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.quiz-card.is-ok {
+  border-color: var(--ok);
+  background: var(--ok-soft);
+}
+
+.quiz-card.is-bad {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.quiz-card.shake {
+  animation: quiz-shake 0.45s ease;
+}
+
+@keyframes quiz-shake {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-6px);
+  }
+  40%,
+  60% {
+    transform: translateX(6px);
+  }
+}
+
+.quiz-label {
+  margin: 0 0 0.5rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.quiz-question {
+  margin: 0 0 1.1rem;
+  font-size: 1.45rem;
+  font-weight: 700;
+  text-align: center;
+  word-break: keep-all;
+  line-height: 1.35;
+}
+
+.quiz-word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.quiz-tts-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.05rem;
+}
+
+.quiz-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.quiz-input {
+  text-align: center;
+  font-size: 1.15rem;
+  padding: 0.7rem 0.9rem;
+}
+
+/* ---------- 객관식 ---------- */
+
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.choice-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-align: left;
+  font: inherit;
+  font-size: 0.97rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.85rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.choice-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.choice-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.choice-btn:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.choice-btn.correct,
+.choice-btn.wrong {
+  opacity: 1;
+}
+
+.choice-btn.correct {
+  border-color: var(--ok);
+  background: var(--ok-soft);
+  color: var(--ok);
+  font-weight: 700;
+}
+
+.choice-btn.wrong {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.choice-num {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.choice-btn.correct .choice-num {
+  background: var(--ok);
+  color: var(--on-accent);
+}
+
+.choice-btn.wrong .choice-num {
+  background: var(--danger);
+  color: var(--on-accent);
+}
+
+/* ---------- 피드백 ---------- */
+
+.quiz-feedback {
+  margin-top: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.fb-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.fb-title.ok {
+  color: var(--ok);
+}
+
+.fb-title.bad {
+  color: var(--danger);
+}
+
+.fb-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.fb-title.ok .fb-icon {
+  background: var(--ok);
+  color: var(--on-accent);
+}
+
+.fb-title.bad .fb-icon {
+  background: var(--danger);
+  color: var(--on-accent);
+}
+
+.fb-icon.pop {
+  animation: fb-pop 0.4s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes fb-pop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.fb-answer {
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 0.85rem;
+}
+
+.fb-word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.fb-meaning {
+  color: var(--text-2);
+  margin-top: 0.2rem;
+}
+
+.fb-example {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-style: italic;
+  margin-top: 0.4rem;
+}
+
+/* ---------- 플래시카드 ---------- */
+
+/* ---------- 플래시카드 요약 ---------- */
+
+/* ---------- 결과 ---------- */
+
+.result-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.4rem;
+  padding: 1.9rem 1.25rem 1.7rem;
+  margin-bottom: 1rem;
+}
+
+.result-msg {
+  margin: 0.5rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.result-meta {
+  margin: 0;
+  font-size: 0.88rem;
+  word-break: keep-all;
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.mark-ok {
+  color: var(--ok);
+}
+
+.mark-bad {
+  color: var(--danger);
+}
+
+tr.row-wrong td {
+  background: var(--danger-soft);
+}
+
+.wrong-given {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.result-mark {
+  width: 34px;
+}
+
+.result-word {
+  white-space: nowrap;
+}
+
+.result-word strong {
+  margin-left: 0.2rem;
+}
+
+.result-table .icon-btn {
+  width: 30px;
+  height: 30px;
+}
+
+/* ---------- 반응형 ---------- */
+
+@media (max-width: 620px) {
+  .quiz-card {
+    padding: 1.3rem 1.05rem;
+  }
+
+  .quiz-question {
+    font-size: 1.25rem;
+  }
+
+  .quiz-word {
+    font-size: 1.5rem;
+  }
+
+  .mode-card {
+    padding: 0.75rem 0.8rem;
+  }
+
+  .result-actions .btn {
+    flex: 1 1 calc(50% - 0.3rem);
+  }
+}
+
+/* ---------- 콤보 · 힌트 · 구간 선택 (신규) ---------- */
+
+.combo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-weight: 800;
+  font-size: 0.82rem;
+  color: var(--warn);
+  background: var(--warn-soft);
+  border-radius: 999px;
+  padding: 0.16rem 0.6rem;
+  animation: combo-pop 0.3s ease;
+}
+
+@keyframes combo-pop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+html[data-theme='dark'] .combo-chip {
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.25);
+}
+
+.quiz-hint {
+  font-family: var(--mono);
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-2);
+  margin: 0.4rem 0 0.8rem;
+}
+
+.setup-range-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+}
+
+.setup-range-row select {
+  flex: 1;
+  min-width: 180px;
+  max-width: 260px;
+  width: auto;
+}
+
+.setup-range-nav {
+  display: flex;
+  gap: 0.35rem;
+}
+
+/* 혼합 모드: 이번 문제의 방향 표시 */
+.quiz-mixtag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Day 다중 선택 그리드 */
+.setup-days {
+  margin-top: 0.75rem;
+}
+
+.setup-days-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.setup-days-actions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+  gap: 0.35rem;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 0.15rem;
+}
+
+.day-chip {
+  font: inherit;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.day-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.day-chip.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+/* 직접 범위 입력 */
+.setup-custom {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.setup-custom-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.setup-custom-row input {
+  width: 100px;
+  font-family: var(--mono);
+  text-align: center;
+}
+
+/* ---------- 복습 안내 배너 ---------- */
+
+.review-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: var(--accent-grad);
+  color: var(--on-accent);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 20px var(--accent-shadow);
+}
+
+.review-banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+}
+
+.review-banner-title {
+  font-size: 1.02rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.review-banner-sub {
+  margin-top: 2px;
+  font-size: 0.85rem;
+  opacity: 0.88;
+  word-break: keep-all;
+}

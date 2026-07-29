@@ -1,0 +1,184 @@
+/* ============================================================
+   통계 페이지 (/stats) 전용 스타일
+   색상/치수는 index.css 디자인 토큰만 사용.
+   ============================================================ */
+
+/* 세로 리듬: 요약 카드 → 차트 2단 → 패널들 */
+.stats-page .stats-grid,
+.stats-page .stats-charts {
+  margin-bottom: 1rem;
+}
+
+.stats-page .panel + .panel {
+  margin-top: 1rem;
+}
+
+/* ---------- 요약 StatCard 4개 ---------- */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+/* ---------- 패널 제목 보조 텍스트 ---------- */
+
+.panel-title-sub {
+  margin-left: auto;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 차트가 2개 미만 데이터일 때 안내 ---------- */
+
+.chart-note {
+  margin: 0;
+  padding: 2.2rem 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ---------- 집중 공략 단어 테이블 ---------- */
+
+.weak-table .weak-cell-tts {
+  width: 44px;
+  padding-right: 0;
+}
+
+.weak-table .weak-cell-star {
+  width: 44px;
+  text-align: right;
+}
+
+.weak-table .icon-btn {
+  width: 34px;
+  height: 34px;
+}
+
+.weak-table .icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.weak-table {
+  min-width: 520px;
+}
+
+.weak-word {
+  display: block;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.weak-set {
+  display: block;
+  font-size: 0.76rem;
+  margin-top: 1px;
+}
+
+.weak-meaning {
+  color: var(--text-2);
+  min-width: 8rem;
+}
+
+.weak-attempts {
+  white-space: nowrap;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 별표 토글 */
+.star-btn:hover {
+  color: var(--star);
+  background: var(--warn-soft);
+}
+
+.star-btn.on {
+  color: var(--star);
+}
+
+/* ---------- 모드별 성적 ---------- */
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .mode-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mode-card {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.85rem;
+}
+
+.mode-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.mode-body {
+  min-width: 0;
+  flex: 1;
+}
+
+.mode-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mode-meta {
+  font-size: 0.78rem;
+  margin-top: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 로딩 스켈레톤 ---------- */
+
+.stats-skel-card {
+  height: 74px;
+  border-radius: var(--radius);
+}
+
+.stats-skel-panel {
+  height: 220px;
+  border-radius: var(--radius);
+}
+
+.stats-page .stats-charts .stats-skel-panel {
+  margin: 0;
+}
+
+.stats-page > .stats-skel-panel {
+  margin-top: 1rem;
+}

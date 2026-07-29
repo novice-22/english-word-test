@@ -1,0 +1,40 @@
+# 공개 서버 배포용 (하드닝 적용).
+#
+# - 호스트 포트를 열지 않는다(expose만). 외부 노출은 리버스 프록시가 담당한다.
+# - 프록시(Caddy·Nginx 등)와 같은 도커 네트워크(기본 이름: web)에 두고
+#   프록시가 voca-app:3001 로 전달하도록 설정한다. docs/DEPLOY.md 참고.
+#
+#   docker compose -f deploy/docker-compose.prod.yml up -d --build
+services:
+  voca-app:
+    build: .
+    image: voca-app
+    container_name: voca-app
+    restart: unless-stopped
+    expose:
+      - "3001" # 호스트 포트 직접 매핑 금지 — 노출은 Caddy 담당
+    volumes:
+      - ./data:/app/data
+    networks:
+      - web
+    environment:
+      - NODE_ENV=production
+    security_opt:
+      - no-new-privileges:true
+    user: "10001:10001"
+    cap_drop:
+      - ALL
+    read_only: true # 루트 파일시스템 읽기전용 (침해 시 변조 방지). 쓰기는 data 볼륨 + tmpfs 만
+    tmpfs:
+      - /tmp:size=16m
+    mem_limit: 512m # OOM으로 다른 컨테이너에 영향 주는 것 방지
+    pids_limit: 256 # fork 폭탄 방지
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  web:
+    external: true

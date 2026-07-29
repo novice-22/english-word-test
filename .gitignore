@@ -1,0 +1,32 @@
+# 의존성
+node_modules/
+
+# 빌드 결과물
+client/dist/
+
+# 데이터베이스 (로컬/서버 데이터)
+server/data/
+data/
+
+# 인증 설정 (비밀번호 해시·구글 시크릿) — 절대 커밋 금지
+auth.json
+**/auth.json
+
+# 개인 문서 (서버 구성·점검 기록 등) — 공개하지 않는다
+_private/
+
+# 품사 검증 사전 — 저작권 있는 교재에서 파생된 데이터라 공개하지 않는다.
+# 없어도 앱은 어미 규칙만으로 동작한다 (server/pos-lexicon.example.js 참고).
+server/pos-lexicon.js
+
+# 환경 변수
+.env
+.env.*
+
+# 로그
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,134 @@
+/* ============================================================
+   시험 이력 페이지 (/history) 전용 스타일
+   색상/치수는 index.css 디자인 토큰만 사용.
+   ============================================================ */
+
+/* ---------- 모드 필터 칩 ---------- */
+
+.history-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- 결과 리스트 ---------- */
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.8rem 0.9rem 0.8rem 1rem;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.history-item:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.history-item:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.history-item:active {
+  transform: none;
+}
+
+.history-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-title {
+  font-weight: 700;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-meta {
+  font-size: 0.82rem;
+  margin-top: 1px;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-del {
+  width: 34px;
+  height: 34px;
+}
+
+.history-del:hover {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.history-chevron {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  flex-shrink: 0;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.history-item:hover .history-chevron {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+/* ---------- 로딩 스켈레톤 ---------- */
+
+.history-skel-chip {
+  display: inline-block;
+  width: 84px;
+  height: 34px;
+  border-radius: 999px;
+}
+
+.history-skel-row {
+  height: 64px;
+  border-radius: var(--radius);
+}
+
+/* ---------- 모바일 ---------- */
+
+@media (max-width: 620px) {
+  .history-item {
+    gap: 0.6rem;
+    padding: 0.75rem 0.7rem 0.75rem 0.85rem;
+  }
+
+  /* 메타는 두 줄까지 허용 */
+  .history-meta {
+    white-space: normal;
+    line-height: 1.45;
+  }
+
+  .history-chevron {
+    display: none;
+  }
+}

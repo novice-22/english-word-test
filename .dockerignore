@@ -1,0 +1,11 @@
+node_modules
+*/node_modules
+client/dist
+server/data
+data
+auth.json
+**/auth.json
+.git
+*.log
+.env
+.env.*

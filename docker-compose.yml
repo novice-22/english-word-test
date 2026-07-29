@@ -1,0 +1,20 @@
+# 로컬 실행용 (localhost 에서만 접근). 포트를 127.0.0.1 에만 바인딩한다.
+# 공개 서버 배포는 이 파일이 아니라 deploy/docker-compose.prod.yml 을 쓴다
+# (리버스 프록시 뒤 expose-only + 하드닝). docs/DEPLOY.md 참고.
+services:
+  app:
+    build: .
+    container_name: english-word-test
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:3001:3001' # 로컬 전용 — 0.0.0.0 로 열지 말 것
+    volumes:
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=production
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 512m
+    pids_limit: 256
