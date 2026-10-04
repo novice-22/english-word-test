@@ -118,7 +118,12 @@ export default function ResultPage() {
         mode: result.mode,
         listenHint: true,
         words: shuffle(
-          wrong.map((a) => ({ id: a.word_id || null, word: a.word, meaning: a.meaning }))
+          wrong.map((a) => ({
+            id: a.word_id || null,
+            word: a.word,
+            meaning: a.meaning,
+            phonetic: a.phonetic,
+          }))
         ),
         pool: result.answers.map((a) => ({ word: a.word, meaning: a.meaning })),
       },
@@ -219,6 +224,7 @@ export default function ResultPage() {
                       </button>
                     )}
                     <strong>{a.word}</strong>
+                    {a.phonetic && <div className="result-phonetic muted">/{a.phonetic}/</div>}
                   </td>
                   <td>{a.meaning}</td>
                   <td className={a.is_correct ? '' : 'wrong-given'}>

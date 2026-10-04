@@ -130,3 +130,7 @@ docker-compose.yml          로컬용 (127.0.0.1 바인딩)
 ## 라이선스
 
 MIT — [LICENSE](LICENSE) 참고.
+
+발음기호 데이터(`server/phonetics.json.gz`)는 CMU Pronouncing Dictionary(BSD-2-clause,
+Copyright © 1993-2015 Carnegie Mellon University)에서 파생된 것입니다. 재배포 시
+저작권 고지가 필요하므로 전문을 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)에 담았습니다.

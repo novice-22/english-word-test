@@ -9,3 +9,8 @@ auth.json
 *.log
 .env
 .env.*
+# 이미지에 안 들어가는 것들 — 빌드 컨텍스트 전송량만 늘린다
+# (Dockerfile 은 client/ 와 server/ 만 COPY 한다)
+word
+tools
+_private

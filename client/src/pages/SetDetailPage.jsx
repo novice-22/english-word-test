@@ -358,14 +358,22 @@ export default function SetDetailPage() {
     if (!payload.word || !payload.meaning) return;
     setError('');
     try {
-      await api.updateWord(w.id, payload);
+      // 서버가 갱신된 행을 돌려준다. pos_parts·phonetic 은 뜻·철자에서 서버가 다시 계산하므로
+      // 응답을 그대로 덮어써야 품사 배지와 발음기호가 옛 값으로 남지 않는다.
+      const updated = await api.updateWord(w.id, payload);
       setSet((prev) =>
         prev
           ? {
               ...prev,
               words: prev.words.map((x) =>
                 x.id === w.id
-                  ? { ...x, word: payload.word, meaning: payload.meaning, example: payload.example || null }
+                  ? {
+                      ...x,
+                      ...updated,
+                      word: payload.word,
+                      meaning: payload.meaning,
+                      example: payload.example || null,
+                    }
                   : x
               ),
             }
@@ -462,6 +470,7 @@ export default function SetDetailPage() {
         <td className="sd-cell-word">
           <span className="sd-seq">{seqMap.get(w.id)}</span>
           <strong>{w.word}</strong>
+          {w.phonetic && <div className="sd-phonetic muted">/{w.phonetic}/</div>}
           {w.example && <div className="sd-example muted">{w.example}</div>}
         </td>
         <td className="sd-cell-meaning">

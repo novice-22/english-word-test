@@ -54,6 +54,7 @@ export default function ReviewPage() {
       word: w.word,
       meaning: w.meaning,
       example: w.example,
+      phonetic: w.phonetic,
     }));
     // 복습 단어가 모두 같은 단어장이면 그 단어장으로 기록
     const setIds = [...new Set(dueWords.map((w) => w.set_id))];

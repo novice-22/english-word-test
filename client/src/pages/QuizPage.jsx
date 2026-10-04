@@ -225,6 +225,7 @@ export default function QuizPage() {
                   </button>
                 )}
               </p>
+              {current.phonetic && <p className="quiz-phonetic">/{current.phonetic}/</p>}
               <div className="choice-list">
                 {opts.map((opt, i) => {
                   let cls = 'choice-btn';
@@ -292,6 +293,7 @@ export default function QuizPage() {
                   </button>
                 )}
               </p>
+              {current.phonetic && <p className="quiz-phonetic">/{current.phonetic}/</p>}
               <form className="quiz-form" onSubmit={submitAnswer}>
                 <input
                   ref={inputRef}
@@ -382,6 +384,7 @@ export default function QuizPage() {
                       )}
                       <strong>{current.word}</strong>
                     </div>
+                    {current.phonetic && <div className="fb-phonetic">/{current.phonetic}/</div>}
                     <div className="fb-meaning">{current.meaning}</div>
                     {current.example && <div className="fb-example">{current.example}</div>}
                   </div>

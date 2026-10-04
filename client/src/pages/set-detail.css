@@ -199,6 +199,15 @@
   padding-top: 0.4rem;
 }
 
+/* 발음기호 — 단어 바로 아래. IPA 는 모노 글꼴이 정렬이 고르다 */
+.sd-phonetic {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  margin-top: 0.1rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
 .sd-example {
   font-size: 0.82rem;
   margin-top: 0.15rem;

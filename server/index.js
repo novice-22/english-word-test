@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import db, { applySm2 } from './db.js';
 import { posOfMeaning, posPartsString } from './pos.js';
+import { phoneticOf, phoneticsAvailable } from './phonetics.js';
 import { authRouter, requireAuth, sameOriginOnly } from './auth.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -210,14 +211,14 @@ app.post('/api/sets/:id/words', (req, res) => {
     return res.status(400).json({ error: '단어와 뜻을 입력하세요.' });
 
   const insert = db.prepare(
-    'INSERT INTO words (set_id, word, meaning, example, pos, pos_parts) VALUES (?, ?, ?, ?, ?, ?)'
+    'INSERT INTO words (set_id, word, meaning, example, pos, pos_parts, phonetic) VALUES (?, ?, ?, ?, ?, ?, ?)'
   );
   db.exec('BEGIN');
   try {
     for (const w of cleaned)
       insert.run(
         set.id, w.word, w.meaning, w.example,
-        posOfMeaning(w.meaning), posPartsString(w.meaning)
+        posOfMeaning(w.meaning), posPartsString(w.meaning), phoneticOf(w.word)
       );
     db.exec('COMMIT');
   } catch (err) {
@@ -242,11 +243,16 @@ app.put('/api/words/:id', (req, res) => {
       : posPartsString(meaning);
   const info = db
     .prepare(
-      'UPDATE words SET word = ?, meaning = ?, example = ?, pos = ?, pos_parts = ? WHERE id = ?'
+      'UPDATE words SET word = ?, meaning = ?, example = ?, pos = ?, pos_parts = ?, phonetic = ? WHERE id = ?'
     )
-    .run(word, meaning, clip(req.body.example, LIMITS.example) || null, pos, posParts, req.params.id);
+    .run(
+      word, meaning, clip(req.body.example, LIMITS.example) || null,
+      pos, posParts, phoneticOf(word), req.params.id
+    );
   if (info.changes === 0) return res.status(404).json({ error: '단어가 없습니다.' });
-  res.json({ ok: true });
+  // 갱신된 행을 돌려준다 — 프론트가 pos_parts·phonetic 을 직접 계산할 수 없어서,
+  // 이걸 안 주면 화면에 옛 품사·옛 발음기호가 새로고침 전까지 남는다.
+  res.json(db.prepare('SELECT * FROM words WHERE id = ?').get(req.params.id));
 });
 
 /** 단어장 전체 품사 일괄 계산/지정 (items 주면 그 값으로, 없으면 뜻으로 자동 계산) */
@@ -308,7 +314,7 @@ app.get('/api/review/due', (req, res) => {
   const words = db
     .prepare(
       `SELECT w.id, w.set_id, s.name AS set_name, w.word, w.meaning, w.example,
-              w.starred, w.due_at, w.reps
+              w.phonetic, w.starred, w.due_at, w.reps
        FROM words w JOIN word_sets s ON s.id = w.set_id
        WHERE w.due_at IS NOT NULL AND date(w.due_at) <= date('now', 'localtime')
        ORDER BY w.due_at ASC, w.id ASC
@@ -421,7 +427,16 @@ app.get('/api/results', (req, res) => {
 app.get('/api/results/:id', (req, res) => {
   const result = db.prepare('SELECT * FROM quiz_results WHERE id = ?').get(req.params.id);
   if (!result) return res.status(404).json({ error: '결과가 없습니다.' });
-  const answers = db.prepare('SELECT * FROM quiz_answers WHERE result_id = ? ORDER BY id').all(req.params.id);
+  // 발음기호는 quiz_answers 에 저장하지 않고 words 에서 끌어온다(단어가 지워졌으면 null).
+  // 철자까지 맞을 때만 붙인다 — quiz_answers.word 는 응시 당시의 철자가 박혀 있어서,
+  // 나중에 단어를 고치면 "옛 철자 + 새 단어의 발음"이 섞여 나온다.
+  const answers = db
+    .prepare(
+      `SELECT a.*, w.phonetic
+       FROM quiz_answers a LEFT JOIN words w ON w.id = a.word_id AND w.word = a.word
+       WHERE a.result_id = ? ORDER BY a.id`
+    )
+    .all(req.params.id);
   res.json({ ...result, answers });
 });
 
@@ -681,6 +696,37 @@ app.use((err, req, res, next) => {
   console.error('[server error]', err?.message || err);
   res.status(500).json({ error: '서버 오류가 발생했습니다.' });
 });
+
+/**
+ * 발음기호 컬럼은 나중에 추가됐으므로 기존 단어는 비어 있다.
+ * 시작할 때 한 번 채운다 — 멱등하고, 사전에 없는 단어는 계속 NULL 로 남아
+ * 다음 기동에서 다시 시도한다(사전을 갱신하면 그때 채워진다).
+ */
+function backfillPhonetics() {
+  if (!phoneticsAvailable) return;
+  const rows = db.prepare('SELECT id, word FROM words WHERE phonetic IS NULL').all();
+  if (rows.length === 0) return;
+
+  const update = db.prepare('UPDATE words SET phonetic = ? WHERE id = ?');
+  let filled = 0;
+  db.exec('BEGIN');
+  try {
+    for (const row of rows) {
+      const ipa = phoneticOf(row.word);
+      if (!ipa) continue;
+      update.run(ipa, row.id);
+      filled++;
+    }
+    db.exec('COMMIT');
+  } catch (err) {
+    db.exec('ROLLBACK');
+    console.error('[phonetics] 채우기 실패:', err?.message || err);
+    return;
+  }
+  if (filled > 0) console.log(`🔤 발음기호 ${filled}개 채움 (대상 ${rows.length}개)`);
+}
+
+backfillPhonetics();
 
 app.listen(PORT, () => {
   console.log(`✅ 서버 실행 중: http://localhost:${PORT}`);

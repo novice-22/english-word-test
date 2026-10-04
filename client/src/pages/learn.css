@@ -265,6 +265,17 @@
   letter-spacing: -0.01em;
 }
 
+/* 발음기호 — 문제의 단어 바로 아래. 답이 새지 않는 모드에서만 렌더된다
+   (객관식·단어→뜻. 받아쓰기와 뜻→단어는 단어 자체가 정답이라 표시하지 않는다).
+   <p> 라서 브라우저 기본 margin 이 붙는다 — 명시적으로 지워야 단어에 붙어 보인다. */
+.quiz-phonetic {
+  margin: 0.2rem 0 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
 .quiz-tts-row {
   display: flex;
   justify-content: center;
@@ -443,6 +454,13 @@
   font-weight: 800;
 }
 
+.fb-phonetic {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+
 .fb-meaning {
   color: var(--text-2);
   margin-top: 0.2rem;
@@ -518,6 +536,16 @@ tr.row-wrong td {
 
 .result-word strong {
   margin-left: 0.2rem;
+}
+
+/* 발음기호 — 문항 표의 단어 아래 줄.
+   블록이라 셀 왼쪽(스피커 아이콘 아래)에서 시작한다. 단어와 세로로 맞추려면
+   아이콘 유무에 따라 들여쓰기가 달라져야 해서, 그냥 왼쪽 정렬로 둔다. */
+.result-phonetic {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  margin-left: 0.2rem;
+  line-height: 1.3;
 }
 
 .result-table .icon-btn {

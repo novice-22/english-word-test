@@ -200,6 +200,7 @@ export default function QuizSetupPage() {
       word: w.word,
       meaning: w.meaning,
       example: w.example,
+      phonetic: w.phonetic,
     }));
     const setName = set.name + rangeLabelText();
 

@@ -113,6 +113,7 @@ addColumnIfMissing('words', 'reps', 'reps INTEGER NOT NULL DEFAULT 0');
 addColumnIfMissing('words', 'due_at', 'due_at TEXT');
 addColumnIfMissing('words', 'pos', 'pos TEXT'); // 단어 전체 품사 (명/동/형/부, 여러 개면 · 로 연결)
 addColumnIfMissing('words', 'pos_parts', 'pos_parts TEXT'); // 뜻 조각별 품사 ("형|명|부|명")
+addColumnIfMissing('words', 'phonetic', 'phonetic TEXT'); // 발음기호 IPA, 슬래시 없이 ("ˈkʌntɹi")
 addColumnIfMissing('quiz_results', 'duration_sec', 'duration_sec INTEGER');
 
 // due_at 컬럼이 (마이그레이션 이후) 존재해야 만들 수 있는 인덱스
