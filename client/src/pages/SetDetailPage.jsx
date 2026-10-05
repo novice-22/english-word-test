@@ -470,7 +470,7 @@ export default function SetDetailPage() {
         <td className="sd-cell-word">
           <span className="sd-seq">{seqMap.get(w.id)}</span>
           <strong>{w.word}</strong>
-          {w.phonetic && <div className="sd-phonetic muted">/{w.phonetic}/</div>}
+          {w.phonetic && <div className="sd-phonetic muted">[{w.phonetic}]</div>}
           {w.example && <div className="sd-example muted">{w.example}</div>}
         </td>
         <td className="sd-cell-meaning">

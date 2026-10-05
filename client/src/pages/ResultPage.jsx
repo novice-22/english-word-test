@@ -224,7 +224,7 @@ export default function ResultPage() {
                       </button>
                     )}
                     <strong>{a.word}</strong>
-                    {a.phonetic && <div className="result-phonetic muted">/{a.phonetic}/</div>}
+                    {a.phonetic && <div className="result-phonetic muted">[{a.phonetic}]</div>}
                   </td>
                   <td>{a.meaning}</td>
                   <td className={a.is_correct ? '' : 'wrong-given'}>
